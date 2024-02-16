@@ -12,7 +12,7 @@ function add_hide_sold_out_checkbox() {
         <?php woocommerce_wp_checkbox( array(
             'id'            => '_hide_sold_out',
             'label'         => __( 'Hide Sold Out', 'text-domain' ),
-            'description'   => __( 'Check this box to hide sold out products from the front end.', 'text-domain' ),
+            'description'   => __( 'Check this box to hide sold out text from the front end.', 'text-domain' ),
             'value'         => $hide_sold_out,
         ) ); ?>
     </div>
