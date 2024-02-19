@@ -1,1 +1,9 @@
 
+.button.single_add_to_cart_button:before {
+    display: inline-block;
+    font-family: fl-icons!important;
+    float: left;
+    content: "";
+    font-weight: 400;
+    margin-right: 0.5em;
+    }
