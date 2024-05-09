@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Change order status to 'cancelled' when payment fails.
+ */
+function custom_cancel_failed_orders( $order_id ) {
+    $order = wc_get_order( $order_id );
+    if ( $order && 'failed' === $order->get_status() ) {
+        $order->update_status( 'cancelled', __( 'Payment failed, order cancelled.', 'wc-order-cancelled' ) );
+    }
+}
+add_action( 'woocommerce_order_status_failed', 'custom_cancel_failed_orders', 10, 1 );
