@@ -1,0 +1,29 @@
+<?php
+
+/*
+This WooCommerce code snippet applies a 50% discount to products in the cart if the customer has previously purchased
+*/
+
+
+add_action( 'woocommerce_before_calculate_totals', 'customer_post_purchase_discount', 10, 1 );
+
+function customer_post_purchase_discount( $cart ) {
+  if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+
+  $customer_orders = wc_get_orders( array( 'customer' => get_current_user_id() ) );
+
+  foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+    $product_id = $cart_item['product_id'];
+
+    // Check past orders for the product
+    foreach ( $customer_orders as $customer_order ) {
+      $order_items = $customer_order->get_items();
+      foreach ( $order_items as $order_item ) {
+        if ( $order_item->get_product_id() == $product_id ) {
+          $cart_item['data']->set_price( $cart_item['data']->get_price() / 2 );
+          break 2; // Exit both loops after finding a match
+        }
+      }
+    }
+  }
+}
